@@ -1,0 +1,28 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/blackknight_75/turing/1611/1module/projects/headcount/lib/district_repository.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1992,
+        1,
+        null,
+        null
+      ],
+      "/Users/blackknight_75/turing/1611/1module/projects/headcount/lib/district.rb": [
+        1,
+        1,
+        null,
+        1,
+        0,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1483490093
+  }
+}
