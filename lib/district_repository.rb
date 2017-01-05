@@ -12,18 +12,22 @@ class DistrictRepository
   end
 
   def find_by_name(name)
-    district = search_districts(name)
-    district
+    search_districts(name)
   end
 
+  # def find_all_matching(names)
+  #   all_matching = []
+  #   names.each do |name|
+  #     all_matching << find_by_name(name)
+  #   end
+  #   all_matching
+  # end
+
   def search_districts(name)
-    # found_district = ""
-    @districts.each_with_index do |district, index|
-      if (name.upcase) == district[1].name
-        @found_district = district[1]
-      else
-      end
+    @districts.each do |district|
+      return district[1] if (name.upcase) == district[1].name
+      # return nil if (name.upcase) != district[1].name
     end
-    @found_district
   end
+
 end
