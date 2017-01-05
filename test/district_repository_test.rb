@@ -9,6 +9,12 @@ class DistrictRepositoryTest < Minitest::Test
     assert_instance_of DistrictRepository, dr
   end
 
+  def test_search_districts_can_find_input_district
+    d1 = District.new({:name => "Adams"})
+    dr = DistrictRepository.new({"Adams" => d1})
+    assert_equal d1, dr.search_districts("Adams")
+  end
+
   def test_district_repo_can_find_one_district_by_name
     d1 = District.new({:name => "Adams"})
     dr = DistrictRepository.new({"Adams" => d1})
