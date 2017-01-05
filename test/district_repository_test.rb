@@ -21,13 +21,15 @@ class DistrictRepositoryTest < Minitest::Test
 
   def test_district_repo_can_find_one_district_by_name
     d1 = District.new({:name => "Adams"})
-    dr = DistrictRepository.new({"Adams" => d1})
+    dr = DistrictRepository.new({"ADAMS" => d1})
     dr.load_data({
       :enrollment => {
         :kindergarten => "./fixtures/kg_in_full_day.csv"
       }
     })
     district = dr.find_by_name("Adams")
+
+    assert_equal "ADAMS", district.name
     assert_equal d1, district
   end
 
