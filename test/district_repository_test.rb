@@ -9,47 +9,46 @@ class DistrictRepositoryTest < Minitest::Test
     assert_instance_of DistrictRepository, dr
   end
 
-  def test_search_districts_can_find_input_district
-    d1 = District.new({:name => "Adams"})
-    d2 = District.new({:name => "ACADEMY 20"})
-    dr = DistrictRepository.new({"ADAMS" => d1, "ACADEMY 20" => d2})
-
-    assert_equal d1, dr.search_districts("Adams")
-    assert_equal d2, dr.search_districts("ACADEMY 20")
-    # assert_equal nil, dr.search_districts("")
-  end
-
   def test_district_repo_can_find_one_district_by_name
-    d1 = District.new({:name => "Adams"})
-    dr = DistrictRepository.new({"ADAMS" => d1})
+    dr = DistrictRepository.new
     dr.load_data({
       :enrollment => {
         :kindergarten => "./fixtures/kg_in_full_day.csv"
       }
     })
-    district = dr.find_by_name("Adams")
+    district = dr.find_by_name("Adams County 14")
 
-    assert_equal "ADAMS", district.name
-    assert_equal d1, district
+    assert_equal "ADAMS COUNTY 14", district.name
+    assert_instance_of District, district
   end
 
   def test_it_can_find_by_name_if_more_than_one_district
-    d1 = District.new({:name => "Adams"})
-    d2 = District.new({:name => "ACADEMY 20"})
-    dr = DistrictRepository.new({"ADAMS" => d1, "ACADEMY 20" => d2})
-    assert_equal d1, dr.find_by_name("Adams")
-    assert_equal d2, dr.find_by_name("ACADEMY 20")
-    # assert_equal nil, dr.find_by_name("")
+    dr = DistrictRepository.new
+      dr = DistrictRepository.new
+      dr.load_data({
+        :enrollment => {
+          :kindergarten => "./fixtures/kg_in_full_day.csv"
+        }
+      })
+      district = dr.find_by_name("Adams County 14")
+
+    assert_instance_of District, dr.find_by_name("Adams County 14")
+    assert_equal "ADAMS COUNTY 14", dr.find_by_name("Adams County 14").name
+    assert_instance_of District, dr.find_by_name("ACADEMY 20")
+    assert_equal "ACADEMY 20", dr.find_by_name("Academy 20").name
+    assert_nil dr.find_by_name("")
   end
 
   def test_can_find_all_matching
-    skip
-    d1 = District.new({:name => "Adams"})
-    d2 = District.new({:name => "ACADEMY 20"})
-    dr = DistrictRepository.new({"ADAMS" => d1, "ACADEMY 20" => d2})
+    dr = DistrictRepository.new
+      dr = DistrictRepository.new
+      dr.load_data({
+        :enrollment => {
+          :kindergarten => "./fixtures/kg_in_full_day.csv"
+        }
+      })
 
-    # assert_equal [d1, d2], dr.find_all_matching(["Adams", "ACADEMY 20"])
+    assert_equal 2, dr.find_all_matching(["Adams County 14", "ACADEMY 20"]).count
     assert_equal [], dr.find_all_matching(["", ""])
   end
-
 end
