@@ -1,4 +1,4 @@
-require './test/test_helper'
+require './test/helper'
 require './lib/district_repository'
 require './lib/district'
 

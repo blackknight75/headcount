@@ -1,4 +1,4 @@
-require './test/test_helper'
+require './test/helper'
 require './lib/enrollment_repository'
 require './lib/enrollment'
 
