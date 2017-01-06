@@ -20,17 +20,18 @@ class DistrictRepositoryTest < Minitest::Test
 
     assert_equal "ADAMS COUNTY 14", district.name
     assert_instance_of District, district
+
+    assert_instance_of EnrollmentRepository, dr.enrollment_repo
   end
 
   def test_it_can_find_by_name_if_more_than_one_district
     dr = DistrictRepository.new
-      dr = DistrictRepository.new
-      dr.load_data({
-        :enrollment => {
-          :kindergarten => "./test/fixtures/kg_in_full_day.csv"
-        }
-      })
-      district = dr.find_by_name("Adams County 14")
+    dr.load_data({
+      :enrollment => {
+        :kindergarten => "./test/fixtures/kg_in_full_day.csv"
+      }
+    })
+    district = dr.find_by_name("Adams County 14")
 
     assert_instance_of District, dr.find_by_name("Adams County 14")
     assert_equal "ADAMS COUNTY 14", dr.find_by_name("Adams County 14").name
@@ -41,14 +42,31 @@ class DistrictRepositoryTest < Minitest::Test
 
   def test_can_find_all_matching
     dr = DistrictRepository.new
-      dr = DistrictRepository.new
-      dr.load_data({
-        :enrollment => {
-          :kindergarten => "./test/fixtures/kg_in_full_day.csv"
-        }
-      })
+    dr.load_data({
+      :enrollment => {
+        :kindergarten => "./test/fixtures/kg_in_full_day.csv"
+      }
+    })
 
     assert_equal 2, dr.find_all_matching(["Adams County 14", "ACADEMY 20"]).count
     assert_equal [], dr.find_all_matching(["", ""])
   end
+
+  def test_can_access_kindergarten_enrollment_for_year
+    dr = DistrictRepository.new
+    dr.load_data({
+      :enrollment => {
+        :kindergarten => "./test/fixtures/kg_in_full_day.csv"
+      }
+    })
+    district = dr.find_by_name("Colorado")
+    assert_instance_of District, district
+    assert_equal "COLORADO", district.name
+
+    enrollment = district.enrollment
+    assert_instance_of Enrollment, enrollment
+    assert_equal "COLORADO", enrollment.name
+    assert_equal 0.33677, enrollment.kindergarten_participation_in_year(2006)
+  end
+
 end
