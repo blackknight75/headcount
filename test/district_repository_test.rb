@@ -13,7 +13,7 @@ class DistrictRepositoryTest < Minitest::Test
     dr = DistrictRepository.new
     dr.load_data({
       :enrollment => {
-        :kindergarten => "./fixtures/kg_in_full_day.csv"
+        :kindergarten => "./test/fixtures/kg_in_full_day.csv"
       }
     })
     district = dr.find_by_name("Adams County 14")
@@ -27,7 +27,7 @@ class DistrictRepositoryTest < Minitest::Test
       dr = DistrictRepository.new
       dr.load_data({
         :enrollment => {
-          :kindergarten => "./fixtures/kg_in_full_day.csv"
+          :kindergarten => "./test/fixtures/kg_in_full_day.csv"
         }
       })
       district = dr.find_by_name("Adams County 14")
@@ -44,7 +44,7 @@ class DistrictRepositoryTest < Minitest::Test
       dr = DistrictRepository.new
       dr.load_data({
         :enrollment => {
-          :kindergarten => "./fixtures/kg_in_full_day.csv"
+          :kindergarten => "./test/fixtures/kg_in_full_day.csv"
         }
       })
 
