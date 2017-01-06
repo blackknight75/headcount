@@ -1,6 +1,6 @@
 require 'rubygems'
-require 'simplecov'
-SimpleCov.start
+# require 'simplecov'
+# SimpleCov.start
 # gem 'mocha'
 # require 'mocha/mini_test'
 require 'minitest/autorun'
