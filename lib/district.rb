@@ -1,12 +1,8 @@
 class District
-  attr_reader :name
+  attr_reader :name, :dr
 
-  def initialize(input)
-    @name = name_generator(input)
+  def initialize(input, district_repo = nil)
+    @name = input[:name]
+    @dr = district_repo
   end
-
-  def name_generator(input)
-    input[:name].upcase
-  end
-
 end
