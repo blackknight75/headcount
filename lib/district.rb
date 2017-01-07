@@ -5,4 +5,8 @@ class District
     @name = input[:name]
     @dr = district_repo
   end
+
+  def enrollment
+    @dr.find_enrollment(@name)
+  end
 end
