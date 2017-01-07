@@ -16,6 +16,11 @@ class DistrictTest < MiniTest::Test
 
   def test_district_can_hold_district_repository
     dr = DistrictRepository.new
+    dr.load_data({
+      :enrollment => {
+        :kindergarten => "./test/fixtures/kg_in_full_day.csv"
+      }
+    })
     district = District.new({:name => "ACADEMY 20"}, dr)
     assert_instance_of DistrictRepository, district.dr
   end
