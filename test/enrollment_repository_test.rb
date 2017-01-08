@@ -27,7 +27,6 @@ class EnrollmentRepositoryTest < MiniTest::Test
       }
     })
     enrollment = er.find_by_name("ACADEMY 20")
-    puts enrollment
     enrollment2 = er.find_by_name("")
     enrollment3 = er.find_by_name(nil)
     assert_equal Enrollment, enrollment.class
