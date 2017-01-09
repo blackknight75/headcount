@@ -1,4 +1,5 @@
-class HeadcountAnalysis
+require './lib/sanitizer'
+class HeadcountAnalyst
   attr_reader :dr
 
   def initialize(district_repo)
@@ -16,13 +17,34 @@ class HeadcountAnalysis
     a = @dr.find_by_name(district).enrollment.kindergarten_participation_by_year
     b = @dr.find_by_name(against[:against]).enrollment.kindergarten_participation_by_year
     a.sort.each do |year, data|
-      c[year] = truncate_data(data / b[year])
+      c[year] = Sanitizer.truncate_data(data / b[year])
     end
     c
   end
 
-  def truncate_data(float)
-    float = 0 if float.nan?
-    (float * 1000).floor / 1000.to_f
+  def kindergarten_participation_against_high_school_graduation(district)
+    a = kindergarten_participation_rate_variation(district, {:against => 'COLORADO'})
+    b = high_school_graduation_rate_variation(district, {:against => 'COLORADO'})
+    Sanitizer.truncate_data(a/b)
   end
+
+  def high_school_graduation_rate_variation(district, state)
+    number_of_entries = @dr.find_by_name(district).enrollment.graduation_rate_by_year.count
+    a = @dr.find_by_name(district).enrollment.graduation_rate_by_year.values.reduce(:+)/number_of_entries
+    b = @dr.find_by_name(state[:against]).enrollment.graduation_rate_by_year.values.reduce(:+)/number_of_entries
+    a / b
+  end
+
+  def kindergarten_participation_correlates_with_high_school_graduation(districts)
+    results = Array.new
+    districts.values.flatten.each do |district|
+      data = kindergarten_participation_against_high_school_graduation(district)
+      results << true  if data > 0.6 && data < 1.5
+      results << false if data < 0.6 && data > 1.5
+      # results << true if results > 0.6 && results < 1.5
+      # results << false if results < 0.6 && results > 1.5
+    end
+    return true  if results.count(true)  > (districts.count / 2)
+    return false if results.count(false) > (districts.count / 2)
+    end
 end

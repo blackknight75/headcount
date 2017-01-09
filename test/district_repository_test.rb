@@ -81,7 +81,7 @@ class DistrictRepositoryTest < Minitest::Test
     enrollment = district.enrollment
     assert_instance_of Enrollment, enrollment
     assert_equal "COLORADO", enrollment.name
-    assert_equal 0.33677, enrollment.kindergarten_participation_in_year(2006)
+    assert_equal 0.336, enrollment.kindergarten_participation_in_year(2006)
   end
 
 end
