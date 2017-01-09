@@ -48,4 +48,18 @@ class EnrollmentRepositoryTest < MiniTest::Test
     actual = enrollment.graduation_rate_by_year
     assert_equal expected, actual
   end
+
+  def test_can_find_graduation_in_year
+    er = EnrollmentRepository.new
+    er.load_data({
+      :enrollment => {
+        :kindergarten => "./test/fixtures/kg_in_full_day.csv",
+        :high_school_graduation => "./test/fixtures/hs_graduation.csv"
+      }
+    })
+    enrollment = er.find_by_name("ACADEMY 20")
+    expected = 0.895
+    actual = enrollment.graduation_rate_in_year(2010)
+    assert_equal expected, actual
+  end
 end

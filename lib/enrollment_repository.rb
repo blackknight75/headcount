@@ -1,16 +1,11 @@
 require 'csv'
 require './lib/enrollment'
-
+require './lib/sanitizer'
 class EnrollmentRepository
   attr_reader :enrollments
   def initialize(enrollments = {})
     @enrollments = enrollments
   end
-
-  # def truncate_data(float)
-  #   float = 0 if float.nan?
-  #   (float * 1000).floor / 1000.to_f
-  # end
 
   def load_data(path)
     path[:enrollment].each do |symbol, file_path|
