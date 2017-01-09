@@ -1,3 +1,4 @@
+require './lib/sanitizer'
 class HeadcountAnalysis
   attr_reader :dr
 
@@ -16,13 +17,8 @@ class HeadcountAnalysis
     a = @dr.find_by_name(district).enrollment.kindergarten_participation_by_year
     b = @dr.find_by_name(against[:against]).enrollment.kindergarten_participation_by_year
     a.sort.each do |year, data|
-      c[year] = truncate_data(data / b[year])
+      c[year] = Sanitizer.truncate_data(data / b[year])
     end
     c
-  end
-
-  def truncate_data(float)
-    float = 0 if float.nan?
-    (float * 1000).floor / 1000.to_f
   end
 end
