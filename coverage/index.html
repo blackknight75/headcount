@@ -14,26 +14,26 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2017-01-09T23:33:48-07:00">2017-01-09T23:33:48-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2017-01-10T09:26:46-07:00">2017-01-10T09:26:46-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">95.24%</span></span>
+    (<span class="covered_percent"><span class="green">96.08%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         6003.6
+         8590.81
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>3</b> files in total.
-    <b>42</b> relevant lines. 
-    <span class="green"><b>40</b> lines covered</span> and
+    <b>51</b> relevant lines. 
+    <span class="green"><b>49</b> lines covered</span> and
     <span class="red"><b>2</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -63,11 +63,11 @@
       <tr>
         <td class="strong"><a href="#2b4112e2fe9f297afa62a8aa624161830ce433b4" class="src_link" title="lib/economic_profile_repository.rb">lib/economic_profile_repository.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>50</td>
-        <td>30</td>
-        <td>30</td>
+        <td>68</td>
+        <td>39</td>
+        <td>39</td>
         <td>0</td>
-        <td>8374.7</td>
+        <td>11210.8</td>
       </tr>
       
       <tr>
@@ -215,8 +215,8 @@
     <h3>lib/economic_profile_repository.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>30</b> relevant lines. 
-      <span class="green"><b>30</b> lines covered</span> and
+      <b>39</b> relevant lines. 
+      <span class="green"><b>39</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -260,8 +260,8 @@
           <code class="ruby">  def initialize</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="7">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="7">
+          <span class="hits">2</span>
           
           <code class="ruby">    @economic_profiles = Hash.new(0)</code>
         </li>
@@ -296,230 +296,338 @@
           <code class="ruby">    path[:economic_profile].each do |symbol, file_path|</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="13">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="4" data-linenumber="13">
+          <span class="hits">4</span>
           
           <code class="ruby">      CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|</code>
         </li>
       
-        <li class="covered" data-hits="17195" data-linenumber="14">
-          <span class="hits">17195</span>
+        <li class="covered" data-hits="22240" data-linenumber="14">
+          <span class="hits">22240</span>
           
           <code class="ruby">        name    = row[:location].upcase</code>
         </li>
       
-        <li class="covered" data-hits="17195" data-linenumber="15">
-          <span class="hits">17195</span>
+        <li class="covered" data-hits="22240" data-linenumber="15">
+          <span class="hits">22240</span>
           
-          <code class="ruby">        year    = row[:timeframe]</code>
+          <code class="ruby">        year    = row[:timeframe].to_i</code>
         </li>
       
-        <li class="covered" data-hits="17195" data-linenumber="16">
-          <span class="hits">17195</span>
+        <li class="covered" data-hits="22240" data-linenumber="16">
+          <span class="hits">22240</span>
           
-          <code class="ruby">        data    = row[:data].to_i</code>
+          <code class="ruby">        data    = row[:data]</code>
         </li>
       
-        <li class="covered" data-hits="17195" data-linenumber="17">
-          <span class="hits">17195</span>
+        <li class="covered" data-hits="22240" data-linenumber="17">
+          <span class="hits">22240</span>
           
           <code class="ruby">        poverty_level = row[:poverty_level]</code>
         </li>
       
-        <li class="covered" data-hits="17195" data-linenumber="18">
-          <span class="hits">17195</span>
+        <li class="covered" data-hits="22240" data-linenumber="18">
+          <span class="hits">22240</span>
           
           <code class="ruby">        dataformat = row[:dataformat]</code>
         </li>
       
-        <li class="covered" data-hits="17195" data-linenumber="19">
-          <span class="hits">17195</span>
+        <li class="covered" data-hits="22240" data-linenumber="19">
+          <span class="hits">22240</span>
           
           <code class="ruby">        lunch_data = lunch_data_selector(row)</code>
         </li>
       
-        <li class="covered" data-hits="17195" data-linenumber="20">
-          <span class="hits">17195</span>
+        <li class="covered" data-hits="22240" data-linenumber="20">
+          <span class="hits">22240</span>
           
-          <code class="ruby">        make_ep(name, data, year, symbol, poverty_level, dataformat, lunch_data)</code>
+          <code class="ruby">        poverty_data = poverty_data_selector(row)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="21">
+        <li class="covered" data-hits="22240" data-linenumber="21">
+          <span class="hits">22240</span>
+          
+          <code class="ruby">        poverty_year = poverty_year_selector(row)</code>
+        </li>
+      
+        <li class="covered" data-hits="22240" data-linenumber="22">
+          <span class="hits">22240</span>
+          
+          <code class="ruby">        make_ep(name, data, year, symbol, poverty_level, dataformat, lunch_data, poverty_data, poverty_year)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="23">
           
           
           <code class="ruby">      end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="22">
+        <li class="never" data-hits="" data-linenumber="24">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="23">
+        <li class="covered" data-hits="1" data-linenumber="25">
           <span class="hits">1</span>
           
           <code class="ruby">    binding.pry</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="24">
+        <li class="never" data-hits="" data-linenumber="26">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="25">
+        <li class="never" data-hits="" data-linenumber="27">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="26">
+        <li class="covered" data-hits="1" data-linenumber="28">
           <span class="hits">1</span>
           
-          <code class="ruby">  def lunch_data_selector(row)</code>
+          <code class="ruby">  def poverty_data_selector(row)</code>
         </li>
       
-        <li class="covered" data-hits="17195" data-linenumber="27">
-          <span class="hits">17195</span>
+        <li class="covered" data-hits="22240" data-linenumber="29">
+          <span class="hits">22240</span>
           
-          <code class="ruby">    return percentage = row[:data].to_f if row[:dataformat] == &quot;Percent&quot;</code>
+          <code class="ruby">    if row[:dataformat] == &quot;Percent&quot;</code>
         </li>
       
-        <li class="covered" data-hits="8145" data-linenumber="28">
-          <span class="hits">8145</span>
+        <li class="covered" data-hits="12110" data-linenumber="30">
+          <span class="hits">12110</span>
           
-          <code class="ruby">    return total      = row[:data].to_i if row[:dataformat] == &quot;Number&quot;</code>
+          <code class="ruby">      row[:data].to_f</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="29">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="30">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="31">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def make_ep(name, data, year, symbol, poverty_level, dataformat, lunch_data)</code>
-        </li>
-      
-        <li class="covered" data-hits="17195" data-linenumber="32">
-          <span class="hits">17195</span>
-          
-          <code class="ruby">    ep_key = @economic_profiles[name]</code>
-        </li>
-      
-        <li class="covered" data-hits="17195" data-linenumber="33">
-          <span class="hits">17195</span>
-          
-          <code class="ruby">    if ep_key != 0</code>
-        </li>
-      
-        <li class="covered" data-hits="17014" data-linenumber="34">
-          <span class="hits">17014</span>
-          
-          <code class="ruby">      ep_key.median_household_income[year]     = data if symbol == :median_household_income</code>
-        </li>
-      
-        <li class="covered" data-hits="17014" data-linenumber="35">
-          <span class="hits">17014</span>
-          
-          <code class="ruby">      ep_key.children_in_poverty[year]         = data if symbol == :children_in_poverty</code>
-        </li>
-      
-        <li class="covered" data-hits="17014" data-linenumber="36">
-          <span class="hits">17014</span>
-          
-          <code class="ruby">      ep_key.free_or_reduced_price_lunch[year][dataformat.to_sym] = lunch_data if poverty_level == &quot;Eligible for Free or Reduced Lunch&quot;</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="37">
-          
-          
-          <code class="ruby">      ep_key.title_i[year]                     = data if symbol == :title_i</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="38">
+        <li class="never" data-hits="" data-linenumber="31">
           
           
           <code class="ruby">    else</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="39">
+        <li class="never" data-hits="" data-linenumber="32">
           
           
-          <code class="ruby">    ep_data = {</code>
+          <code class="ruby">      nil</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="40">
-          
-          
-          <code class="ruby">      :name =&gt; name,</code>
-        </li>
-      
-        <li class="covered" data-hits="17014" data-linenumber="41">
-          <span class="hits">17014</span>
-          
-          <code class="ruby">      :median_household_income =&gt; Hash.new,</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="42">
-          
-          
-          <code class="ruby">      :children_in_poverty =&gt; Hash.new,</code>
-        </li>
-      
-        <li class="covered" data-hits="181" data-linenumber="43">
-          <span class="hits">181</span>
-          
-          <code class="ruby">      :free_or_reduced_price_lunch =&gt; Hash.new { |hash, key| hash[key] = {} },</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="44">
-          
-          
-          <code class="ruby">      :title_i =&gt; Hash.new</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="45">
-          
-          
-          <code class="ruby">      }</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="46">
-          
-          
-          <code class="ruby">      ep = EconomicProfile.new(ep_data)</code>
-        </li>
-      
-        <li class="covered" data-hits="2715" data-linenumber="47">
-          <span class="hits">2715</span>
-          
-          <code class="ruby">      @economic_profiles[name] = ep</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="48">
+        <li class="never" data-hits="" data-linenumber="33">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="49">
+        <li class="never" data-hits="" data-linenumber="34">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="covered" data-hits="181" data-linenumber="50">
+        <li class="never" data-hits="" data-linenumber="35">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="36">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def poverty_year_selector(row)</code>
+        </li>
+      
+        <li class="covered" data-hits="22240" data-linenumber="37">
+          <span class="hits">22240</span>
+          
+          <code class="ruby">    if row[:dataformat] == &quot;Percent&quot;</code>
+        </li>
+      
+        <li class="covered" data-hits="12110" data-linenumber="38">
+          <span class="hits">12110</span>
+          
+          <code class="ruby">      row[:timeframe].to_i</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="39">
+          
+          
+          <code class="ruby">    else</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="40">
+          
+          
+          <code class="ruby">      nil</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="41">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="42">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="43">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="44">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def lunch_data_selector(row)</code>
+        </li>
+      
+        <li class="covered" data-hits="22240" data-linenumber="45">
+          <span class="hits">22240</span>
+          
+          <code class="ruby">    return row[:data].to_f.round(3) if row[:dataformat] == &quot;Percent&quot;</code>
+        </li>
+      
+        <li class="covered" data-hits="10130" data-linenumber="46">
+          <span class="hits">10130</span>
+          
+          <code class="ruby">    return row[:data].to_i if row[:dataformat] == &quot;Number&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="47">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="48">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="49">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def make_ep(name, data, year, symbol, poverty_level, dataformat, lunch_data, poverty_data, poverty_year)</code>
+        </li>
+      
+        <li class="covered" data-hits="22240" data-linenumber="50">
+          <span class="hits">22240</span>
+          
+          <code class="ruby">    ep_key = @economic_profiles[name]</code>
+        </li>
+      
+        <li class="covered" data-hits="22240" data-linenumber="51">
+          <span class="hits">22240</span>
+          
+          <code class="ruby">    if ep_key != 0</code>
+        </li>
+      
+        <li class="covered" data-hits="22059" data-linenumber="52">
+          <span class="hits">22059</span>
+          
+          <code class="ruby">      ep_key.median_household_income[year]     = data.to_i if symbol == :median_household_income</code>
+        </li>
+      
+        <li class="covered" data-hits="22059" data-linenumber="53">
+          <span class="hits">22059</span>
+          
+          <code class="ruby">      ep_key.children_in_poverty[poverty_year]         = poverty_data.to_f.round(3) if symbol == :children_in_poverty &amp;&amp; poverty_year != nil</code>
+        </li>
+      
+        <li class="covered" data-hits="22059" data-linenumber="54">
+          <span class="hits">22059</span>
+          
+          <code class="ruby">      ep_key.free_or_reduced_price_lunch[year][dataformat.to_sym] = lunch_data if poverty_level == &quot;Eligible for Free or Reduced Lunch&quot;</code>
+        </li>
+      
+        <li class="covered" data-hits="22059" data-linenumber="55">
+          <span class="hits">22059</span>
+          
+          <code class="ruby">      ep_key.title_i[year]                     = data.to_f if symbol == :title_i</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="56">
+          
+          
+          <code class="ruby">    else</code>
+        </li>
+      
+        <li class="covered" data-hits="181" data-linenumber="57">
           <span class="hits">181</span>
+          
+          <code class="ruby">    ep_data = {</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="58">
+          
+          
+          <code class="ruby">      :name =&gt; name,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="59">
+          
+          
+          <code class="ruby">      :median_household_income =&gt; Hash.new,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="60">
+          
+          
+          <code class="ruby">      :children_in_poverty =&gt; Hash.new,</code>
+        </li>
+      
+        <li class="covered" data-hits="2715" data-linenumber="61">
+          <span class="hits">2715</span>
+          
+          <code class="ruby">      :free_or_reduced_price_lunch =&gt; Hash.new { |hash, key| hash[key] = {} },</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="62">
+          
+          
+          <code class="ruby">      :title_i =&gt; Hash.new</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="63">
+          
+          
+          <code class="ruby">      }</code>
+        </li>
+      
+        <li class="covered" data-hits="181" data-linenumber="64">
+          <span class="hits">181</span>
+          
+          <code class="ruby">      ep = EconomicProfile.new(ep_data)</code>
+        </li>
+      
+        <li class="covered" data-hits="181" data-linenumber="65">
+          <span class="hits">181</span>
+          
+          <code class="ruby">      @economic_profiles[name] = ep</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="66">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="67">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="68">
+          
           
           <code class="ruby">end</code>
         </li>
