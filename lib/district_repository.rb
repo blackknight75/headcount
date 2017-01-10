@@ -1,6 +1,6 @@
 require 'csv'
-require './lib/district'
-require './lib/enrollment_repository'
+require_relative "district"
+require_relative "enrollment_repository"
 
 class DistrictRepository
   attr_reader :districts, :er
@@ -14,7 +14,7 @@ class DistrictRepository
     @er.load_data(path)
     filename = path[:enrollment][:kindergarten]
     CSV.foreach(filename, headers: true, header_converters: :symbol) do |row|
-      name = row[:location]
+      name = row[:location].upcase
       d = District.new({:name => name.upcase}, self)
       @districts[d.name] = d unless @districts.has_key?(name)
     end
@@ -24,8 +24,13 @@ class DistrictRepository
     @districts[name.upcase] if @districts.has_key?(name.upcase)
   end
 
-  def find_all_matching(names)
-    found_districts = names.map {|name| find_by_name(name)}.compact
+  def find_all_matching(prefix)
+    found = Array.new
+    if prefix.empty? || prefix.nil?
+    else
+      @districts.each {|k, v| found << v if k.start_with?(prefix)}
+    end
+    found
   end
 
   def find_enrollment(name)

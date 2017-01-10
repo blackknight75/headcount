@@ -1,7 +1,6 @@
 require './test/helper'
-require './lib/district'
-require './lib/district_repository'
-
+require_relative "../../headcount/lib/district_repository"
+require_relative "../../headcount/lib/district"
 class DistrictTest < MiniTest::Test
 
   def test_district_exists

@@ -1,6 +1,6 @@
 require 'csv'
-require './lib/economic_profile'
-require './lib/sanitizer'
+require_relative "economic_profile"
+require_relative "sanitizer"
 class EconomicProfileRepository
   attr_reader :economic_profiles, :csv_object
 
@@ -33,10 +33,10 @@ class EconomicProfileRepository
   end
 
   def ep_data_router(row, symbol, ep_key)
-    ep_key.median_household_income[year(row)]     = data(row).to_i if symbol == :median_household_income
-    ep_key.children_in_poverty[poverty_year(row)]         = poverty_data(row) if symbol == :children_in_poverty && poverty_year(row) != nil
+    ep_key.median_household_income[year(row)]                               = data(row).to_i if symbol == :median_household_income
+    ep_key.children_in_poverty[poverty_year(row)]                           = poverty_data(row) if symbol == :children_in_poverty && poverty_year(row) != nil
     ep_key.free_or_reduced_price_lunch[year(row)][(dataformat(row)).to_sym] = lunch_data(row) if poverty_level(row) == "Eligible for Free or Reduced Lunch"
-    ep_key.title_i[year(row)]                     = data(row).to_f if symbol == :title_i
+    ep_key.title_i[year(row)]                                               = data(row).to_f if symbol == :title_i
   end
 
   def make_new_economic_profile(row)

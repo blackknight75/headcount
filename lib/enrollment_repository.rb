@@ -1,6 +1,6 @@
 require 'csv'
-require './lib/enrollment'
-require './lib/sanitizer'
+require_relative "enrollment"
+require_relative "sanitizer"
 class EnrollmentRepository
   attr_reader :enrollments
   def initialize(enrollments = {})
@@ -10,20 +10,19 @@ class EnrollmentRepository
   def load_data(path)
     path[:enrollment].each do |symbol, file_path|
       CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
-        name    = row[:location]
-        year    = row[:timeframe].to_i
-        data = Sanitizer.truncate_data(row[:data].to_f)
-        make_enrollments(name.upcase, data, year, symbol)
+        name = row[:location]
+        year = row[:timeframe].to_i
+        make_enrollments(name.upcase, year, symbol, row)
       end
     end
   end
 
-  def make_enrollments(name, data, year, symbol)
+  def make_enrollments(name, year, symbol, row)
     if @enrollments[name]
-      @enrollments[name].kindergarten_participation[year] = data if symbol == :kindergarten
-      @enrollments[name].high_school_graduation[year]     = data if symbol == :high_school_graduation
+      @enrollments[name].kindergarten_participation[year] = data(row) if symbol == :kindergarten
+      @enrollments[name].high_school_graduation[year]     = data(row) if symbol == :high_school_graduation
     else
-      d = Enrollment.new({:name => name, :kindergarten_participation => {year => data}, :high_school_graduation => Hash.new})
+      d = Enrollment.new({:name => name, :kindergarten_participation => {year => data(row)}, :high_school_graduation => Hash.new})
       @enrollments[name] = d
     end
   end
@@ -32,5 +31,7 @@ class EnrollmentRepository
     @enrollments[name.upcase] if name
   end
 
-
+  def data(row)
+    Sanitizer.truncate_data(row[:data].to_f)
+  end
 end

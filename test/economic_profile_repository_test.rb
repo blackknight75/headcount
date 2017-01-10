@@ -1,6 +1,6 @@
 require './test/helper'
-require './lib/economic_profile_repository'
-require './lib/economic_profile'
+require_relative "../../headcount/lib/economic_profile_repository"
+require_relative "../../headcount/lib/economic_profile"
 
 class EconomicProfileRepositoryTest < Minitest::Test
 

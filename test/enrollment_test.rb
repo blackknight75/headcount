@@ -1,7 +1,5 @@
 require './test/helper'
-require './lib/enrollment'
-
-
+require_relative "../../headcount/lib/enrollment"
 class EnrollmentTest < Minitest::Test
 
   def test_enrollment_exists

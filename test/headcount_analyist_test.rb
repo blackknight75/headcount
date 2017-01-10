@@ -1,6 +1,6 @@
 require './test/helper'
-require './lib/headcount_analysis'
-require './lib/district_repository'
+require_relative "../../headcount/lib/district_repository"
+require_relative "../../headcount/lib/headcount_analyst"
 
 class HeadcountAnalystTest < Minitest::Test
 
@@ -130,4 +130,14 @@ class HeadcountAnalystTest < Minitest::Test
    expected = ha.kindergarten_participation_correlates_with_high_school_graduation(:across => [district_1, district_2, district_3])
    assert_equal true, expected
   end
+
+  def test_statewide_kindergarten_high_school_prediction
+    dr = DistrictRepository.new
+    dr.load_data({:enrollment => {:kindergarten => "./data/Kindergartners in full-day program.csv",
+                                  :high_school_graduation => "./data/High school graduation rates.csv"}})
+    ha = HeadcountAnalyst.new(dr)
+
+    refute ha.kindergarten_participation_correlates_with_high_school_graduation(:for => 'STATEWIDE')
+  end
+
 end

@@ -1,6 +1,6 @@
 require './test/helper'
-require './lib/district_repository'
-require './lib/district'
+require_relative "../../headcount/lib/district_repository"
+require_relative "../../headcount/lib/district"
 
 class DistrictRepositoryTest < Minitest::Test
 
@@ -47,8 +47,8 @@ class DistrictRepositoryTest < Minitest::Test
       }
     })
 
-    assert_equal 2, dr.find_all_matching(["Adams County 14", "ACADEMY 20"]).count
-    assert_equal [], dr.find_all_matching(["", ""])
+    assert_equal 3, dr.find_all_matching("A").count
+    assert_equal [], dr.find_all_matching("")
   end
 
   def test_district_can_hold_enrollment_repository
@@ -82,6 +82,20 @@ class DistrictRepositoryTest < Minitest::Test
     assert_instance_of Enrollment, enrollment
     assert_equal "COLORADO", enrollment.name
     assert_equal 0.336, enrollment.kindergarten_participation_in_year(2006)
+  end
+
+  def test_loading_and_finding_districts
+    dr = DistrictRepository.new
+    dr.load_data({
+     :enrollment => {
+       :kindergarten => "./data/Kindergartners in full-day program.csv"
+       }
+     })
+    district = dr.find_by_name("ACADEMY 20")
+
+    assert_equal "ACADEMY 20", district.name
+
+    assert_equal 7, dr.find_all_matching("WE").count
   end
 
 end
