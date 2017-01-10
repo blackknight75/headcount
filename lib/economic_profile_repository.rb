@@ -2,16 +2,18 @@ require 'csv'
 require './lib/economic_profile'
 require './lib/sanitizer'
 class EconomicProfileRepository
-  attr_reader :economic_profiles
+  attr_reader :economic_profiles, :csv_object
 
   def initialize
     @economic_profiles = Hash.new(0)
+    @csv_object = nil
 
   end
 
   def load_data(path)
     path[:economic_profile].each do |symbol, file_path|
       CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
+        @csv_object = row
         make_ep(row, symbol)
       end
     end
@@ -59,7 +61,12 @@ class EconomicProfileRepository
   end
 
   def data(row)
-    row[:data]
+    data = row[:data]
+    if data != nil && data.include?(".")
+      data.to_f
+    else
+      data.to_i
+    end
   end
 
   def poverty_data(row)

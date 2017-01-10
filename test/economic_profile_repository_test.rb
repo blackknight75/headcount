@@ -13,10 +13,10 @@ class EconomicProfileRepositoryTest < Minitest::Test
     epr = EconomicProfileRepository.new
     epr.load_data({
     :economic_profile => {
-      :median_household_income => "./data/Median household income.csv",
-      :children_in_poverty => "./data/School-aged children in poverty.csv",
-      :free_or_reduced_price_lunch => "./data/Students qualifying for free or reduced price lunch.csv",
-      :title_i => "./data/Title I students.csv"
+      :median_household_income => "./test/fixtures/median_income.csv",
+      :children_in_poverty => "./test/fixtures/children_poverty.csv",
+      :free_or_reduced_price_lunch => "./test/fixtures/lunch.csv",
+      :title_i => "./test/fixtures/title.csv"
     }
     })
     ep = epr.find_by_name("ACADEMY 20")
@@ -28,13 +28,114 @@ class EconomicProfileRepositoryTest < Minitest::Test
     epr = EconomicProfileRepository.new
     epr.load_data({
     :economic_profile => {
-      :median_household_income => "./data/Median household income.csv",
-      :children_in_poverty => "./data/School-aged children in poverty.csv",
-      :free_or_reduced_price_lunch => "./data/Students qualifying for free or reduced price lunch.csv",
-      :title_i => "./data/Title I students.csv"
+      :median_household_income => "./test/fixtures/median_income.csv",
+      :children_in_poverty => "./test/fixtures/children_poverty.csv",
+      :free_or_reduced_price_lunch => "./test/fixtures/lunch.csv",
+      :title_i => "./test/fixtures/title.csv"
     }
     })
     assert_equal Hash, epr.economic_profiles.class
-    assert_equal 181, epr.economic_profiles.count
+    assert_equal 4, epr.economic_profiles.count
+  end
+
+  def test_input_name
+    epr = EconomicProfileRepository.new
+    epr.load_data({
+    :economic_profile => {
+      :median_household_income => "./test/fixtures/median_income.csv",
+    }
+    })
+    row = epr.csv_object
+    assert_equal "ADAMS-ARAPAHOE 28J", epr.input_name(row)
+    assert_equal String, epr.input_name(row).class
+  end
+
+  def test_poverty_level
+      epr = EconomicProfileRepository.new
+      epr.load_data({
+      :economic_profile => {
+        :free_or_reduced_price_lunch => "./test/fixtures/lunch.csv",
+      }
+      })
+      row = epr.csv_object
+      assert_equal "Eligible for Reduced Price Lunch", epr.poverty_level(row)
+      assert_equal String, epr.poverty_level(row).class
+  end
+
+  def test_dataformat
+    epr = EconomicProfileRepository.new
+    epr.load_data({
+    :economic_profile => {
+      :children_in_poverty => "./test/fixtures/children_poverty.csv",
+    }
+    })
+    row = epr.csv_object
+    assert_equal "Percent", epr.dataformat(row)
+    assert_equal String, epr.dataformat(row).class
+  end
+
+  def test_year
+    epr = EconomicProfileRepository.new
+    epr.load_data({
+    :economic_profile => {
+      :children_in_poverty => "./test/fixtures/children_poverty.csv",
+    }
+    })
+    row = epr.csv_object
+    assert_equal 2013, epr.year(row)
+    assert_equal Fixnum, epr.year(row).class
+  end
+
+  def test_data
+    epr = EconomicProfileRepository.new
+    epr.load_data({
+    :economic_profile => {
+      :children_in_poverty => "./test/fixtures/children_poverty.csv",
+    }
+    })
+    row = epr.csv_object
+    assert_equal 0.267, epr.data(row)
+    assert_equal Float, epr.data(row).class
+  end
+
+  def test_poverty_data
+    epr = EconomicProfileRepository.new
+    epr.load_data({
+    :economic_profile => {
+      :children_in_poverty => "./test/fixtures/children_poverty.csv",
+    }
+    })
+    row = epr.csv_object
+    assert_equal 0.267, epr.poverty_data(row)
+    assert_equal Float, epr.poverty_data(row).class
+  end
+
+  def test_poverty_year
+    epr = EconomicProfileRepository.new
+    epr.load_data({
+    :economic_profile => {
+      :children_in_poverty => "./test/fixtures/children_poverty.csv",
+    }
+    })
+    row = epr.csv_object
+    assert_equal 2013, epr.poverty_year(row)
+    assert_equal Fixnum, epr.poverty_year(row).class
+  end
+
+  def test_lunch_data
+      epr = EconomicProfileRepository.new
+      epr.load_data({
+      :economic_profile => {
+        :free_or_reduced_price_lunch => "./test/fixtures/lunch.csv",
+      }
+      })
+      row = epr.csv_object
+      assert_equal 0.08, epr.lunch_data(row)
+      assert_equal Float, epr.lunch_data(row).class
+  end
+
+  def test_ep_data_framework
+    epr = EconomicProfileRepository.new
+    assert_equal Hash, epr.ep_data_framework("Academy 20").class
   end
 end
