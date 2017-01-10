@@ -14,6 +14,13 @@ class DistrictRepositoryTest < Minitest::Test
     dr.load_data({
       :enrollment => {
         :kindergarten => "./test/fixtures/kg_in_full_day.csv"
+      },
+      :statewide_testing => {
+        :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+        :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+        :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
       }
     })
     district = dr.find_by_name("Adams County 14")
@@ -28,6 +35,13 @@ class DistrictRepositoryTest < Minitest::Test
     dr.load_data({
       :enrollment => {
         :kindergarten => "./test/fixtures/kg_in_full_day.csv"
+      },
+      :statewide_testing => {
+        :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+        :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+        :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
       }
     })
     district = dr.find_by_name("Adams County 14")
@@ -44,6 +58,13 @@ class DistrictRepositoryTest < Minitest::Test
     dr.load_data({
       :enrollment => {
         :kindergarten => "./test/fixtures/kg_in_full_day.csv"
+      },
+      :statewide_testing => {
+        :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+        :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+        :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
       }
     })
 
@@ -61,6 +82,13 @@ class DistrictRepositoryTest < Minitest::Test
     dr.load_data({
       :enrollment => {
         :kindergarten => "./test/fixtures/kg_in_full_day.csv"
+      },
+      :statewide_testing => {
+        :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+        :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+        :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
       }
     })
     assert_instance_of Enrollment, dr.find_enrollment("COLORADO")
@@ -72,6 +100,13 @@ class DistrictRepositoryTest < Minitest::Test
     dr.load_data({
       :enrollment => {
         :kindergarten => "./test/fixtures/kg_in_full_day.csv"
+      },
+      :statewide_testing => {
+        :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+        :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+        :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
       }
     })
     district = dr.find_by_name("Colorado")
