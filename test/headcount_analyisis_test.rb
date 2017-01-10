@@ -9,6 +9,13 @@ class HeadcountAnalystTest < Minitest::Test
     dr.load_data({
       :enrollment => {
         :kindergarten => "./test/fixtures/kg_in_full_day.csv"
+      },
+      :statewide_testing => {
+        :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+        :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+        :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
       }
     })
 
@@ -21,6 +28,13 @@ class HeadcountAnalystTest < Minitest::Test
     dr.load_data({
       :enrollment => {
         :kindergarten => "./test/fixtures/kg_in_full_day.csv"
+      },
+      :statewide_testing => {
+        :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+        :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+        :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
       }
     })
     ha = HeadcountAnalyst.new(dr)
@@ -32,6 +46,13 @@ class HeadcountAnalystTest < Minitest::Test
     dr.load_data({
       :enrollment => {
         :kindergarten => "./test/fixtures/kg_in_full_day.csv"
+      },
+      :statewide_testing => {
+        :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+        :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+        :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
       }
     })
     ha = HeadcountAnalyst.new(dr)
@@ -43,6 +64,13 @@ class HeadcountAnalystTest < Minitest::Test
     dr.load_data({
       :enrollment => {
         :kindergarten => "./test/fixtures/kg_in_full_day.csv"
+      },
+      :statewide_testing => {
+        :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+        :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+        :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
       }
     })
     ha = HeadcountAnalyst.new(dr)
@@ -56,6 +84,13 @@ class HeadcountAnalystTest < Minitest::Test
     dr.load_data({
       :enrollment => {
         :kindergarten => "./test/fixtures/kg_in_full_day.csv"
+      },
+      :statewide_testing => {
+        :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+        :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+        :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
       }
     })
     ha = HeadcountAnalyst.new(dr)
@@ -69,6 +104,13 @@ class HeadcountAnalystTest < Minitest::Test
     dr.load_data({
       :enrollment => {
         :kindergarten => "./test/fixtures/kg_in_full_day.csv"
+      },
+      :statewide_testing => {
+        :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+        :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+        :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
       }
     })
     ha = HeadcountAnalyst.new(dr)
@@ -83,6 +125,13 @@ class HeadcountAnalystTest < Minitest::Test
       :enrollment => {
         :kindergarten => "./test/fixtures/kg_in_full_day.csv",
         :high_school_graduation => "./test/fixtures/hs_graduation.csv"
+      },
+      :statewide_testing => {
+        :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+        :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+        :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+        :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
       }
     })
     ha = HeadcountAnalyst.new(dr)
@@ -94,7 +143,14 @@ class HeadcountAnalystTest < Minitest::Test
   def test_high_school_versus_kindergarten_analysis
    dr = DistrictRepository.new
    dr.load_data({:enrollment => {:kindergarten => "./data/Kindergartners in full-day program.csv",
-                                 :high_school_graduation => "./data/High school graduation rates.csv"}})
+                                 :high_school_graduation => "./data/High school graduation rates.csv"},
+                                 :statewide_testing => {
+                                   :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+                                   :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+                                   :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+                                   :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+                                   :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
+                                 }})
    ha = HeadcountAnalyst.new(dr)
 
    assert_in_delta 0.548, ha.kindergarten_participation_against_high_school_graduation('MONTROSE COUNTY RE-1J'), 0.005
@@ -104,7 +160,14 @@ class HeadcountAnalystTest < Minitest::Test
  def test_can_find_high_school_graduation_variation
    dr = DistrictRepository.new
    dr.load_data({:enrollment => {:kindergarten => "./data/Kindergartners in full-day program.csv",
-                                 :high_school_graduation => "./data/High school graduation rates.csv"}})
+                                 :high_school_graduation => "./data/High school graduation rates.csv"},
+                                 :statewide_testing => {
+                                   :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+                                   :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+                                   :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+                                   :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+                                   :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
+                                 }})
    ha = HeadcountAnalyst.new(dr)
    expected = ha.high_school_graduation_rate_variation("ACADEMY 20", :against => "COLORADO")
    assert_equal 1.1947844598190527, expected
@@ -113,7 +176,14 @@ class HeadcountAnalystTest < Minitest::Test
  def test_kindergarten_participation_correlates_with_high_school_graduation
    dr = DistrictRepository.new
    dr.load_data({:enrollment => {:kindergarten => "./data/Kindergartners in full-day program.csv",
-                                 :high_school_graduation => "./data/High school graduation rates.csv"}})
+                                 :high_school_graduation => "./data/High school graduation rates.csv"},
+                                 :statewide_testing => {
+                                   :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+                                   :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+                                   :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+                                   :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+                                   :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
+                                 }})
    ha = HeadcountAnalyst.new(dr)
    expected = ha.kindergarten_participation_correlates_with_high_school_graduation(for: 'ACADEMY 20')
    assert_equal true, expected
@@ -122,7 +192,14 @@ class HeadcountAnalystTest < Minitest::Test
  def test_multi_district_corellation_with_hs_to_kg
    dr = DistrictRepository.new
    dr.load_data({:enrollment => {:kindergarten => "./data/Kindergartners in full-day program.csv",
-                                 :high_school_graduation => "./data/High school graduation rates.csv"}})
+                                 :high_school_graduation => "./data/High school graduation rates.csv"},
+                                 :statewide_testing => {
+                                   :third_grade => "./data/3rd grade students scoring proficient or above on the CSAP_TCAP.csv",
+                                   :eighth_grade => "./data/8th grade students scoring proficient or above on the CSAP_TCAP.csv",
+                                   :math => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Math.csv",
+                                   :reading => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Reading.csv",
+                                   :writing => "./data/Average proficiency on the CSAP_TCAP by race_ethnicity_ Writing.csv"
+                                 }})
    ha = HeadcountAnalyst.new(dr)
    district_1 = "ACADEMY 20"
    district_2 = "ADAMS COUNTY 14"
