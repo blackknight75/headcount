@@ -12,19 +12,18 @@ class EnrollmentRepository
       CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
         name    = row[:location]
         year    = row[:timeframe].to_i
-        kg_data = Sanitizer.truncate_data(row[:data].to_f) if symbol == :kindergarten
-        hs_data = Sanitizer.truncate_data(row[:data].to_f) if symbol == :high_school_graduation
-        make_enrollments(name.upcase, kg_data, hs_data, year, symbol)
+        data = Sanitizer.truncate_data(row[:data].to_f)
+        make_enrollments(name.upcase, data, year, symbol)
       end
     end
   end
 
-  def make_enrollments(name, kg_data, hs_data, year, symbol)
+  def make_enrollments(name, data, year, symbol)
     if @enrollments[name]
-      @enrollments[name].kindergarten_participation[year] = kg_data if symbol == :kindergarten
-      @enrollments[name].high_school_graduation[year]     = hs_data if symbol == :high_school_graduation
+      @enrollments[name].kindergarten_participation[year] = data if symbol == :kindergarten
+      @enrollments[name].high_school_graduation[year]     = data if symbol == :high_school_graduation
     else
-      d = Enrollment.new({:name => name, :kindergarten_participation => {year => kg_data}, :high_school_graduation => Hash.new})
+      d = Enrollment.new({:name => name, :kindergarten_participation => {year => data}, :high_school_graduation => Hash.new})
       @enrollments[name] = d
     end
   end

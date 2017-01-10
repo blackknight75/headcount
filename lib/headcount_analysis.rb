@@ -41,8 +41,6 @@ class HeadcountAnalyst
       data = kindergarten_participation_against_high_school_graduation(district)
       results << true  if data > 0.6 && data < 1.5
       results << false if data < 0.6 && data > 1.5
-      # results << true if results > 0.6 && results < 1.5
-      # results << false if results < 0.6 && results > 1.5
     end
     return true  if results.count(true)  > (districts.count / 2)
     return false if results.count(false) > (districts.count / 2)

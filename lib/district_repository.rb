@@ -18,6 +18,7 @@ class DistrictRepository
       d = District.new({:name => name.upcase}, self)
       @districts[d.name] = d unless @districts.has_key?(name)
     end
+    binding.pry
   end
 
   def find_by_name(name)
