@@ -23,8 +23,12 @@ class HeadcountAnalyst
   end
 
   def kindergarten_participation_against_high_school_graduation(district)
-    a = kindergarten_participation_rate_variation(district, {:against => 'COLORADO'})
-    b = high_school_graduation_rate_variation(district, {:against => 'COLORADO'})
+    x = district
+    if district == "STATEWIDE"
+      x = "COLORADO"
+    end
+    a = kindergarten_participation_rate_variation(x, {:against => 'COLORADO'})
+    b = high_school_graduation_rate_variation(x, {:against => 'COLORADO'})
     Sanitizer.truncate_data(a/b)
   end
 
@@ -41,8 +45,7 @@ class HeadcountAnalyst
       data = kindergarten_participation_against_high_school_graduation(district)
       results << correlate?(data)
     end
-    return true  if results.count(true)  > (districts.count / 2)
-    return false if results.count(false) > (districts.count / 2)
+    results.count(true) > (districts.count / 2) ? true : false
     end
 
     def correlate?(data)
