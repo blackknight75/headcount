@@ -1,5 +1,5 @@
 require './test/helper'
-require './lib/headcount_analysis'
+require './lib/headcount_analyst'
 require './lib/district_repository'
 
 class HeadcountAnalystTest < Minitest::Test

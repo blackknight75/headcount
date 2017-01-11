@@ -2,7 +2,6 @@ require 'csv'
 require_relative 'statewide_test'
 require_relative 'sanitizer'
 class StatewideTestRepository
-
   def initialize
     @statewide_tests = {}
   end
@@ -18,9 +17,9 @@ class StatewideTestRepository
 
         if symbol == :third_grade || symbol == :eighth_grade
           if symbol == :third_grade
-            top_level_key = 3
+            top_level_key = symbol
           elsif symbol == :eighth_grade
-            top_level_key = 8
+            top_level_key = symbol
           end
 
           subject = score.downcase.to_sym
@@ -53,6 +52,7 @@ class StatewideTestRepository
     top_level_key_year_subject_hash[top_level_key] = {} unless top_level_key_year_subject_hash.has_key?(top_level_key)
     top_level_key_year_subject_hash[top_level_key][year] = {} unless top_level_key_year_subject_hash[top_level_key].has_key?(year)
     top_level_key_year_subject_hash[top_level_key][year][subject] = data
+    binding.pry
   end
 
   def find_by_name(name)

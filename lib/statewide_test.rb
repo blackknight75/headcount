@@ -1,7 +1,7 @@
 class StatewideTest
   attr_reader :name, :grade_year_subject, :race_year_subject
 
-  def initialize(input)
+  def initialize(input = {})
     @name = input[:name]
     @grade_year_subject = input[:grade_year_subject] if input.has_key?(:grade_year_subject)
     @race_year_subject = input[:race_year_subject] if input.has_key?(:race_year_subject)

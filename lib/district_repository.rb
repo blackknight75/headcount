@@ -6,7 +6,7 @@ class DistrictRepository
   attr_reader :districts, :er
 
   def initialize
-    @districts = Hash.new(0)
+    @districts = {}
     @er = EnrollmentRepository.new
   end
 
@@ -21,7 +21,7 @@ class DistrictRepository
   end
 
   def find_by_name(name)
-    @districts[name.upcase] if @districts.has_key?(name.upcase)
+    @districts[name.upcase] #if @districts.has_key?(name.upcase)
   end
 
   def find_all_matching(prefix)

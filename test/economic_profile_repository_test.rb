@@ -45,6 +45,8 @@ class EconomicProfileRepositoryTest < Minitest::Test
       :median_household_income => "./test/fixtures/median_income.csv",
     }
     })
+    # row = CSV::Row.new([location:"ACADEMY 20"], [head: "COLORADO"], true)
+    # binding.pry
     row = epr.csv_object
     assert_equal "ADAMS-ARAPAHOE 28J", epr.input_name(row)
     assert_equal String, epr.input_name(row).class

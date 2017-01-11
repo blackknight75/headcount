@@ -23,12 +23,8 @@ class HeadcountAnalyst
   end
 
   def kindergarten_participation_against_high_school_graduation(district)
-    x = district
-    if district == "STATEWIDE"
-      x = "COLORADO"
-    end
-    a = kindergarten_participation_rate_variation(x, {:against => 'COLORADO'})
-    b = high_school_graduation_rate_variation(x, {:against => 'COLORADO'})
+    a = kindergarten_participation_rate_variation(district, {:against => 'COLORADO'})
+    b = high_school_graduation_rate_variation(district, {:against => 'COLORADO'})
     Sanitizer.truncate_data(a/b)
   end
 
@@ -40,15 +36,35 @@ class HeadcountAnalyst
   end
 
   def kindergarten_participation_correlates_with_high_school_graduation(districts)
-    results = Array.new
-    districts.values.flatten.each do |district|
-      data = kindergarten_participation_against_high_school_graduation(district)
-      results << correlate?(data)
+    if districts[:for] == "STATEWIDE"
+      check_correlation_statewide(districts)
+    elsif districts[:across]
+      check_correlation_across_multiple_districts(districts)
+    else
+      check_correlation_of_single_district(districts)
     end
-    results.count(true) > (districts.count / 2) ? true : false
-    end
+  end
 
-    def correlate?(data)
-       data >= 0.6 && data <= 1.5 ? true : false
+  def check_correlation_of_single_district(districts)
+    result = kindergarten_participation_against_high_school_graduation(districts[:for])
+    correlate?(result)
+  end
+
+  def check_correlation_across_multiple_districts(districts)
+    results = districts[:across].map do |district_name|
+      correlate?(kindergarten_participation_against_high_school_graduation(district_name))
     end
+    (results.count(true) / (results.count)) > 0.70
+  end
+
+  def check_correlation_statewide(districts)
+    results = @dr.districts.keys.map do |district_name|
+      correlate?(kindergarten_participation_against_high_school_graduation(district_name))
+    end
+    (results.count(true) / (results.count)) > 0.70
+  end
+
+  def correlate?(data)
+     data >= 0.6 && data <= 1.5 ? true : false
+  end
 end
