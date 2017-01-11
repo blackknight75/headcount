@@ -1,6 +1,6 @@
 require './test/helper'
-require './lib/district_repository'
-require './lib/district'
+require_relative "../../headcount/lib/district_repository"
+require_relative "../../headcount/lib/district"
 
 class DistrictRepositoryTest < Minitest::Test
 
@@ -68,8 +68,8 @@ class DistrictRepositoryTest < Minitest::Test
       }
     })
 
-    assert_equal 2, dr.find_all_matching(["Adams County 14", "ACADEMY 20"]).count
-    assert_equal [], dr.find_all_matching(["", ""])
+    assert_equal 3, dr.find_all_matching("A").count
+    assert_equal [], dr.find_all_matching("")
   end
 
   def test_district_can_hold_enrollment_repository

@@ -1,5 +1,5 @@
 require './test/helper'
-require './lib/statewide_test_repository'
+require_relative '../lib/statewide_test_repository'
 
 class StatewideTestRepositoryTest < Minitest::Test
 
@@ -20,8 +20,8 @@ class StatewideTestRepositoryTest < Minitest::Test
       }
     })
 
-    academy_20_statewide_test = statewide_repo.find_by_name("ACADEMY 20")
-    assert_equal "ACADEMY 20", academy_20_statewide_test.name
+    st = statewide_repo.find_by_name("ACADEMY 20")
+    assert_equal "ACADEMY 20", st.name
   end
 
   def test_statewide_test_repo_proficient_by_grade
@@ -36,9 +36,9 @@ class StatewideTestRepositoryTest < Minitest::Test
       }
     })
 
-    academy_20_statewide_test = statewide_repo.find_by_name("ACADEMY 20")
-    year_hash = academy_20_statewide_test.proficient_by_grade(8)
-
+    st = statewide_repo.find_by_name("ACADEMY 20")
+    year_hash = st.proficient_by_grade(:eighth_grade)
+    
     assert_equal 7, year_hash.keys.length
     assert_equal true, year_hash.has_key?(2008)
 
@@ -64,8 +64,8 @@ class StatewideTestRepositoryTest < Minitest::Test
     }
   })
 
-  academy_20_statewide_test = statewide_repo.find_by_name("ACADEMY 20")
-  year_hash = academy_20_statewide_test.proficient_by_race_or_ethnicity(:asian)
+  st = statewide_repo.find_by_name("ACADEMY 20")
+  year_hash = st.proficient_by_race_or_ethnicity(:asian)
 
   assert_equal 4, year_hash.keys.length
   assert_equal true, year_hash.has_key?(2011)
@@ -93,8 +93,8 @@ class StatewideTestRepositoryTest < Minitest::Test
     }
   })
 
-  academy_20_statewide_test = statewide_repo.find_by_name("ACADEMY 20")
-  proficiency = academy_20_statewide_test.proficient_for_subject_by_grade_in_year(:math, 3, 2009)
+  st = statewide_repo.find_by_name("ACADEMY 20")
+  proficiency = st.proficient_for_subject_by_grade_in_year(:math, :third_grade, 2009)
 
   assert_equal 0.824, proficiency
   end
@@ -112,8 +112,8 @@ class StatewideTestRepositoryTest < Minitest::Test
       }
     })
 
-    academy_20_statewide_test = statewide_repo.find_by_name("ACADEMY 20")
-    proficiency = academy_20_statewide_test.proficient_for_subject_by_race_in_year(:math, :asian, 2011)
+    st = statewide_repo.find_by_name("ACADEMY 20")
+    proficiency = st.proficient_for_subject_by_race_in_year(:math, :asian, 2011)
 
     assert_equal 0.816, proficiency
   end

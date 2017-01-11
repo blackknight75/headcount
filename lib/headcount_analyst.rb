@@ -1,4 +1,4 @@
-require './lib/sanitizer'
+require_relative "sanitizer"
 class HeadcountAnalyst
   attr_reader :dr
 
@@ -36,15 +36,35 @@ class HeadcountAnalyst
   end
 
   def kindergarten_participation_correlates_with_high_school_graduation(districts)
-    results = Array.new
-    districts.values.flatten.each do |district|
-      data = kindergarten_participation_against_high_school_graduation(district)
-      results << true  if data > 0.6 && data < 1.5
-      results << false if data < 0.6 && data > 1.5
-      # results << true if results > 0.6 && results < 1.5
-      # results << false if results < 0.6 && results > 1.5
+    if districts[:for] == "STATEWIDE"
+      check_correlation_statewide(districts)
+    elsif districts[:across]
+      check_correlation_across_multiple_districts(districts)
+    else
+      check_correlation_of_single_district(districts)
     end
-    return true  if results.count(true)  > (districts.count / 2)
-    return false if results.count(false) > (districts.count / 2)
+  end
+
+  def check_correlation_of_single_district(districts)
+    result = kindergarten_participation_against_high_school_graduation(districts[:for])
+    correlate?(result)
+  end
+
+  def check_correlation_across_multiple_districts(districts)
+    results = districts[:across].map do |district_name|
+      correlate?(kindergarten_participation_against_high_school_graduation(district_name))
     end
+    (results.count(true) / (results.count)) > 0.70
+  end
+
+  def check_correlation_statewide(districts)
+    results = @dr.districts.keys.map do |district_name|
+      correlate?(kindergarten_participation_against_high_school_graduation(district_name))
+    end
+    (results.count(true) / (results.count)) > 0.70
+  end
+
+  def correlate?(data)
+     data >= 0.6 && data <= 1.5 ? true : false
+  end
 end
