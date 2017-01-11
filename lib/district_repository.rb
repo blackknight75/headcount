@@ -1,10 +1,16 @@
 require 'csv'
+<<<<<<< HEAD
 require_relative 'district'
 require_relative 'enrollment_repository'
 require_relative 'statewide_test_repository'
+=======
+require_relative "district"
+require_relative "enrollment_repository"
+require_relative "statewide_test_repository"
+>>>>>>> 75fcf8f0777e2dbeb96a81c3e107f7d4d24b2889
 
 class DistrictRepository
-  attr_reader :districts, :er
+  attr_reader :districts, :er, :str
 
   def initialize
     @districts = {}
@@ -14,6 +20,8 @@ class DistrictRepository
 
   def load_data(path)
     @er.load_data(path)
+    @str.load_data(path)
+
     filename = path[:enrollment][:kindergarten]
     CSV.foreach(filename, headers: true, header_converters: :symbol) do |row|
       name = row[:location].upcase
@@ -39,7 +47,11 @@ class DistrictRepository
     @er.find_by_name(name)
   end
 
+<<<<<<< HEAD
   def find_statewide_test(name)
+=======
+  def find_statewide(name)
+>>>>>>> 75fcf8f0777e2dbeb96a81c3e107f7d4d24b2889
     @str.find_by_name(name)
   end
 end

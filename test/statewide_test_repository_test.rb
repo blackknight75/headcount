@@ -1,5 +1,9 @@
 require './test/helper'
+<<<<<<< HEAD
 require_relative '../lib/statewide_test_repository'
+=======
+require './lib/statewide_test_repository'
+>>>>>>> 75fcf8f0777e2dbeb96a81c3e107f7d4d24b2889
 
 class StatewideTestRepositoryTest < Minitest::Test
 
@@ -20,8 +24,13 @@ class StatewideTestRepositoryTest < Minitest::Test
       }
     })
 
+<<<<<<< HEAD
     st = statewide_repo.find_by_name("ACADEMY 20")
     assert_equal "ACADEMY 20", st.name
+=======
+    academy_20_statewide_test = statewide_repo.find_by_name("ACADEMY 20")
+    assert_equal "ACADEMY 20", academy_20_statewide_test.name
+>>>>>>> 75fcf8f0777e2dbeb96a81c3e107f7d4d24b2889
   end
 
   def test_statewide_test_repo_proficient_by_grade
@@ -36,8 +45,14 @@ class StatewideTestRepositoryTest < Minitest::Test
       }
     })
 
+<<<<<<< HEAD
     st = statewide_repo.find_by_name("ACADEMY 20")
     year_hash = st.proficient_by_grade(:eighth_grade)
+=======
+    academy_20_statewide_test = statewide_repo.find_by_name("ACADEMY 20")
+    year_hash = academy_20_statewide_test.proficient_by_grade(8)
+
+>>>>>>> 75fcf8f0777e2dbeb96a81c3e107f7d4d24b2889
     assert_equal 7, year_hash.keys.length
     assert_equal true, year_hash.has_key?(2008)
 
@@ -63,8 +78,13 @@ class StatewideTestRepositoryTest < Minitest::Test
     }
   })
 
+<<<<<<< HEAD
   st = statewide_repo.find_by_name("ACADEMY 20")
   year_hash = st.proficient_by_race_or_ethnicity(:asian)
+=======
+  academy_20_statewide_test = statewide_repo.find_by_name("ACADEMY 20")
+  year_hash = academy_20_statewide_test.proficient_by_race_or_ethnicity(:asian)
+>>>>>>> 75fcf8f0777e2dbeb96a81c3e107f7d4d24b2889
 
   assert_equal 4, year_hash.keys.length
   assert_equal true, year_hash.has_key?(2011)
@@ -92,8 +112,13 @@ class StatewideTestRepositoryTest < Minitest::Test
     }
   })
 
+<<<<<<< HEAD
   st = statewide_repo.find_by_name("ACADEMY 20")
   proficiency = st.proficient_for_subject_by_grade_in_year(:math, :third_grade, 2009)
+=======
+  academy_20_statewide_test = statewide_repo.find_by_name("ACADEMY 20")
+  proficiency = academy_20_statewide_test.proficient_for_subject_by_grade_in_year(:math, 3, 2009)
+>>>>>>> 75fcf8f0777e2dbeb96a81c3e107f7d4d24b2889
 
   assert_equal 0.824, proficiency
   end
@@ -111,8 +136,13 @@ class StatewideTestRepositoryTest < Minitest::Test
       }
     })
 
+<<<<<<< HEAD
     st = statewide_repo.find_by_name("ACADEMY 20")
     proficiency = st.proficient_for_subject_by_race_in_year(:math, :asian, 2011)
+=======
+    academy_20_statewide_test = statewide_repo.find_by_name("ACADEMY 20")
+    proficiency = academy_20_statewide_test.proficient_for_subject_by_race_in_year(:math, :asian, 2011)
+>>>>>>> 75fcf8f0777e2dbeb96a81c3e107f7d4d24b2889
 
     assert_equal 0.816, proficiency
   end

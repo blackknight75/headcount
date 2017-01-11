@@ -1,7 +1,15 @@
 require 'csv'
+<<<<<<< HEAD
 require_relative 'statewide_test'
 require_relative 'sanitizer'
 class StatewideTestRepository
+=======
+require './lib/statewide_test'
+require './lib/sanitizer'
+require 'pry'
+class StatewideTestRepository
+
+>>>>>>> 75fcf8f0777e2dbeb96a81c3e107f7d4d24b2889
   def initialize
     @statewide_tests = {}
   end
@@ -17,9 +25,15 @@ class StatewideTestRepository
 
         if symbol == :third_grade || symbol == :eighth_grade
           if symbol == :third_grade
+<<<<<<< HEAD
             top_level_key = symbol
           elsif symbol == :eighth_grade
             top_level_key = symbol
+=======
+            top_level_key = 3
+          elsif symbol == :eighth_grade
+            top_level_key = 8
+>>>>>>> 75fcf8f0777e2dbeb96a81c3e107f7d4d24b2889
           end
 
           subject = score.downcase.to_sym
@@ -43,7 +57,11 @@ class StatewideTestRepository
     end
 
     statewide_test = @statewide_tests[name]
+<<<<<<< HEAD
     if top_level_key == :third_grade || top_level_key == :eighth_grade
+=======
+    if top_level_key == 3 || top_level_key == 8
+>>>>>>> 75fcf8f0777e2dbeb96a81c3e107f7d4d24b2889
       top_level_key_year_subject_hash = statewide_test.grade_year_subject
     else
       top_level_key_year_subject_hash = statewide_test.race_year_subject
