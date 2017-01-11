@@ -1,5 +1,4 @@
 require './test/helper'
-<<<<<<< HEAD
 require_relative '../lib/statewide_test'
 require_relative '../lib/statewide_test_repository'
 
@@ -87,10 +86,4 @@ class StatewideTestTest < Minitest::Test
       st.proficient_for_subject_by_race_in_year(:pizza, :white, 2013)
     end
   end
-=======
-require './lib/statewide_test'
-require './lib/statewide_test_repository'
-
-class StatewideTestTest < Minitest::Test
->>>>>>> 75fcf8f0777e2dbeb96a81c3e107f7d4d24b2889
 end
