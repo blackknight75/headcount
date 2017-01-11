@@ -5,4 +5,53 @@ class Sanitizer
     (float * 1000).floor / 1000.to_f
   end
 
+  def self.input_name(row)
+    row[:location].upcase
+  end
+
+  def self.poverty_level(row)
+    row[:poverty_level]
+  end
+
+  def self.dataformat(row)
+    row[:dataformat]
+  end
+
+  def self.year(row)
+    row[:timeframe].to_i
+  end
+
+  def self.data(row)
+    data = row[:data]
+    if data != nil && data.include?(".")
+      data.to_f
+    else
+      data.to_i
+    end
+  end
+
+  def self.poverty_data(row)
+    if row[:dataformat] == "Percent"
+      row[:data].to_f.round(3)
+    else
+      nil
+    end
+  end
+
+  def self.poverty_year(row)
+    if row[:dataformat] == "Percent"
+      row[:timeframe].to_i
+    else
+      nil
+    end
+  end
+
+  def self.lunch_data(row)
+    return row[:data].to_f.round(3) if row[:dataformat] == "Percent"
+    return row[:data].to_i if row[:dataformat] == "Number"
+
+  end
+  # def self.error?(condition)
+  #   raise UnknownDataError unless condition
+  # end
 end

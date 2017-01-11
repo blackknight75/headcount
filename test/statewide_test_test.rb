@@ -65,4 +65,25 @@ class StatewideTestTest < Minitest::Test
     assert_equal 0.557, expected
     assert_equal Float, expected.class
   end
+
+  def test_unknown_data_errors
+    st = StatewideTest.new(data)
+    # testing = str.find_by_name("AULT-HIGHLAND RE-9")
+
+    assert_raises(UnknownDataError) do
+      st.proficient_by_grade(1)
+    end
+
+    assert_raises(UnknownDataError) do
+      st.proficient_for_subject_by_grade_in_year(:pizza, 8, 2011)
+    end
+
+    assert_raises(UnknownDataError) do
+      st.proficient_for_subject_by_race_in_year(:reading, :pizza, 2013)
+    end
+
+    assert_raises(UnknownDataError) do
+      st.proficient_for_subject_by_race_in_year(:pizza, :white, 2013)
+    end
+  end
 end
