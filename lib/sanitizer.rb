@@ -14,7 +14,7 @@ class Sanitizer
   end
 
   def self.dataformat(row)
-    row[:dataformat]
+    row[:dataformat].downcase
   end
 
   def self.year(row, symbol = nil)
@@ -28,7 +28,9 @@ class Sanitizer
 
   def self.data(row)
     data = row[:data]
-    if data != nil && data.include?(".")
+    if data.nil?
+      0
+    elsif data != nil && data.include?(".")
       data.to_f.round(3)
     else
       data.to_i
@@ -36,15 +38,15 @@ class Sanitizer
   end
 
   def self.poverty_data(row)
-    if row[:dataformat] == "Percent"
+    if row[:dataformat] == "percent"
       row[:data].to_f.round(3)
     else
-      nil
+
     end
   end
 
   def self.poverty_year(row)
-    if row[:dataformat] == "Percent"
+    if row[:dataformat] == "percent"
       row[:timeframe].to_i
     else
       nil
@@ -52,8 +54,8 @@ class Sanitizer
   end
 
   def self.lunch_data(row)
-    return row[:data].to_f.round(3) if row[:dataformat] == "Percent"
-    return row[:data].to_i if row[:dataformat] == "Number"
+    return row[:data].to_f.round(3) if row[:dataformat] == "percent"
+    return row[:data].to_i if row[:dataformat] == "number"
 
   end
   # def self.error?(condition)

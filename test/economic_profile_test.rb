@@ -16,12 +16,12 @@ class EconomicProfileTest < Minitest::Test
         },
       free_or_reduced_price_lunch:
       {
-        2014=>{:Number=>3132, :Percent=>0.127},
-        2004=>{:Number=>1182, :Percent=>0.06},
-        2003=>{:Percent=>0.06, :Number=>1062},
-        2002=>{:Number=>905, :Percent=>0.048},
-        2001=>{:Percent=>0.047, :Number=>855},
-        2000=>{:Number=>701, :Percent=>0.04}
+        2014=>{:total=>3132, :percentage=>0.127},
+        2004=>{:total=>1182, :percentage=>0.06},
+        2003=>{:percentage=>0.06, :total=>1062},
+        2002=>{:total=>905, :percentage=>0.048},
+        2001=>{:percentage=>0.047, :total=>855},
+        2000=>{:total=>701, :percentage=>0.04}
        },
       title_i: {2009=>0.014, 2011=>0.011, 2012=>0.0107, 2013=>0.0125, 2014=>0.027}
     }
@@ -56,12 +56,12 @@ class EconomicProfileTest < Minitest::Test
   def test_economic_profile_has_lunch_data
     ep = EconomicProfile.new(data)
     expected = {
-      2014=>{:Number=>3132, :Percent=>0.127},
-      2004=>{:Number=>1182, :Percent=>0.06},
-      2003=>{:Percent=>0.06, :Number=>1062},
-      2002=>{:Number=>905, :Percent=>0.048},
-      2001=>{:Percent=>0.047, :Number=>855},
-      2000=>{:Number=>701, :Percent=>0.04}
+      2014=>{:total=>3132, :percentage=>0.127},
+      2004=>{:total=>1182, :percentage=>0.06},
+      2003=>{:percentage=>0.06, :total=>1062},
+      2002=>{:total=>905, :percentage=>0.048},
+      2001=>{:percentage=>0.047, :total=>855},
+      2000=>{:total=>701, :percentage=>0.04}
      }
     assert_equal (expected), ep.free_or_reduced_price_lunch
     assert_equal Hash, ep.free_or_reduced_price_lunch.class
@@ -69,7 +69,7 @@ class EconomicProfileTest < Minitest::Test
 
   def test_economic_profile_title_i_data
     ep = EconomicProfile.new(data)
-    expected = {2009=>0.014, 2011=>0.011, 2012=>0.01072, 2013=>0.01246, 2014=>0.0273}
+    expected = {2009=>0.014, 2011=>0.011, 2012=>0.0107, 2013=>0.0125, 2014=>0.027}
     assert_equal (expected), ep.title_i
     assert_equal Hash, ep.title_i.class
   end
@@ -97,7 +97,23 @@ class EconomicProfileTest < Minitest::Test
 
   def test_can_find_title_i_in_year
     ep = EconomicProfile.new(data)
-    assert_equal 0.127, ep.free_or_reduced_price_lunch_percentage_in_year(2014)
+    assert_equal 0.027, ep.title_i_in_year(2014)
   end
+
+  def test_economic_profile_basics
+  data = {:median_household_income => {[2014, 2015] => 50000, [2013, 2014] => 60000},
+          :children_in_poverty => {2012 => 0.1845},
+          :free_or_reduced_price_lunch => {2014 => {:percentage => 0.023, :total => 100}},
+          :title_i => {2015 => 0.543},
+         }
+  ep = EconomicProfile.new(data)
+  assert_equal 50000, ep.median_household_income_in_year(2015)
+  assert_equal 55000, ep.median_household_income_average
+  assert_in_delta 0.184, ep.children_in_poverty_in_year(2012), 0.005
+  assert_in_delta 0.023, ep.free_or_reduced_price_lunch_percentage_in_year(2014), 0.005
+  assert_equal 100, ep.free_or_reduced_price_lunch_number_in_year(2014)
+  assert_in_delta 0.543, ep.title_i_in_year(2015), 0.005
+end
+
 
 end

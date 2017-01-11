@@ -38,10 +38,14 @@ class EconomicProfile
   end
 
   def free_or_reduced_price_lunch_percentage_in_year(year)
-    @free_or_reduced_price_lunch[year][:Percent]
+    @free_or_reduced_price_lunch[year][:percentage]
   end
 
   def free_or_reduced_price_lunch_number_in_year(year)
-    @free_or_reduced_price_lunch[year][:Number]
+    @free_or_reduced_price_lunch[year][:total]
+  end
+
+  def title_i_in_year(year)
+    @title_i[year]
   end
 end
