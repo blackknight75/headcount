@@ -33,7 +33,7 @@ class EconomicProfileRepository
   end
 
   def ep_data_router(row, symbol, ep_key)
-    ep_key.median_household_income[Sanitizer.year(row)]                               = Sanitizer.data(row).to_i if symbol == :median_household_income
+    ep_key.median_household_income[Sanitizer.year(row, symbol)]                               = Sanitizer.data(row).to_i if symbol == :median_household_income
     ep_key.children_in_poverty[Sanitizer.poverty_year(row)]                           = Sanitizer.poverty_data(row) if symbol == :children_in_poverty && Sanitizer.poverty_year(row) != nil
     ep_key.free_or_reduced_price_lunch[Sanitizer.year(row)][(Sanitizer.dataformat(row)).to_sym] = Sanitizer.lunch_data(row) if Sanitizer.poverty_level(row) == "Eligible for Free or Reduced Lunch"
     ep_key.title_i[Sanitizer.year(row)]                                               = Sanitizer.data(row).to_f if symbol == :title_i

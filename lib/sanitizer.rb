@@ -17,14 +17,19 @@ class Sanitizer
     row[:dataformat]
   end
 
-  def self.year(row)
-    row[:timeframe].to_i
+  def self.year(row, symbol = nil)
+    if symbol == :median_household_income
+      x = row[:timeframe].split("-")
+      results = x.map {|year| year.to_i}
+    else
+      row[:timeframe].to_i
+    end
   end
 
   def self.data(row)
     data = row[:data]
     if data != nil && data.include?(".")
-      data.to_f
+      data.to_f.round(3)
     else
       data.to_i
     end
