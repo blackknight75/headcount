@@ -1,6 +1,6 @@
 require 'csv'
 require_relative 'statewide_test'
-require_relative 'sanitizer'
+require_relative 'Clean'
 class StatewideTestRepository
 
   def initialize
@@ -12,7 +12,7 @@ class StatewideTestRepository
       CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
         name    = row[:location].upcase
         year    = row[:timeframe].to_i
-        data = Sanitizer.truncate_data(row[:data].to_f)
+        # data = Clean.truncate_data(row[:data].to_f)
         race = row[:race_ethnicity]
         score = row[:score]
 
@@ -29,12 +29,12 @@ class StatewideTestRepository
           subject = symbol.downcase.to_sym
         end
 
-        make_statewide_test(name, year, data, top_level_key, subject)
+        make_statewide_test(name, year, top_level_key, subject, row)
       end
     end
   end
 
-  def make_statewide_test(name, year, data, top_level_key, subject)
+  def make_statewide_test(name, year, top_level_key, subject, row)
     unless @statewide_tests.has_key?(name)
       @statewide_tests[name] = StatewideTest.new({
         :name => name,
@@ -45,14 +45,14 @@ class StatewideTestRepository
 
     statewide_test = @statewide_tests[name]
     if top_level_key == :third_grade || top_level_key == :eighth_grade
-      top_level_key_year_subject_hash = statewide_test.grade_year_subject
+      root = statewide_test.grade_year_subject
     else
-      top_level_key_year_subject_hash = statewide_test.race_year_subject
+      root = statewide_test.race_year_subject
     end
 
-    top_level_key_year_subject_hash[top_level_key] = {} unless top_level_key_year_subject_hash.has_key?(top_level_key)
-    top_level_key_year_subject_hash[top_level_key][year] = {} unless top_level_key_year_subject_hash[top_level_key].has_key?(year)
-    top_level_key_year_subject_hash[top_level_key][year][subject] = data
+    root[top_level_key] = {} unless root.has_key?(top_level_key)
+    root[top_level_key][year] = {} unless root[top_level_key].has_key?(year)
+    root[top_level_key][year][subject] = Clean.data(row)
   end
 
   def find_by_name(name)

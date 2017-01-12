@@ -1,6 +1,6 @@
 require 'csv'
 require_relative "enrollment"
-require_relative "sanitizer"
+require_relative "Clean"
 class EnrollmentRepository
   attr_reader :enrollments
   def initialize(enrollments = {})
@@ -18,13 +18,22 @@ class EnrollmentRepository
   end
 
   def make_enrollments(name, year, symbol, row)
-    if @enrollments[name]
-      @enrollments[name].kindergarten_participation[year] = data(row) if symbol == :kindergarten
-      @enrollments[name].high_school_graduation[year]     = data(row) if symbol == :high_school_graduation
+    e_key = @enrollments[name]
+    if e_key
+      e_key.kindergarten_participation[year] = data(row) if kg_symbol(symbol)
+      e_key.high_school_graduation[year]     = data(row) if hs_symbol(symbol)
     else
-      d = Enrollment.new({:name => name, :kindergarten_participation => {year => data(row)}, :high_school_graduation => Hash.new})
+      d = Enrollment.new(enrollment_data_framework(name, year, row))
       @enrollments[name] = d
     end
+  end
+
+  def kg_symbol(symbol)
+    symbol == :kindergarten
+  end
+
+  def hs_symbol(symbol)
+    symbol == :high_school_graduation
   end
 
   def find_by_name(name)
@@ -32,6 +41,14 @@ class EnrollmentRepository
   end
 
   def data(row)
-    Sanitizer.truncate_data(row[:data].to_f)
+    Clean.truncate_data(row[:data].to_f)
+  end
+
+  def enrollment_data_framework(name, year, row)
+    {
+      :name => name,
+      :kindergarten_participation => {year => data(row)},
+      :high_school_graduation => Hash.new
+    }
   end
 end

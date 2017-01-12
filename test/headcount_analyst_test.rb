@@ -4,14 +4,31 @@ require_relative "../../headcount/lib/headcount_analyst"
 
 class HeadcountAnalystTest < Minitest::Test
 
-  def test_headcount_anaylsis_exists
-    dr = DistrictRepository.new
-    dr.load_data({
-      :enrollment => {
-        :kindergarten => "./test/fixtures/kg_in_full_day.csv"
-      }
-    })
+  def dr
+   dr = DistrictRepository.new
+   dr.load_data({
+     :enrollment => {
+       :kindergarten => "./test/fixtures/kg_in_full_day.csv",
+       :high_school_graduation => "./test/fixtures/hs_graduation.csv",
+     },
+     :statewide_testing => {
+       :third_grade => "./test/fixtures/3rd_grade.csv",
+       :eighth_grade => "./test/fixtures/8th_grade.csv",
+       :math => "./test/fixtures/math.csv",
+       :reading => "./test/fixtures/reading.csv",
+       :writing => "./test/fixtures/writing.csv"
+     },
+     :economic_profile => {
+       :median_household_income => "./test/fixtures/median_income.csv",
+       :children_in_poverty => "./test/fixtures/children_poverty.csv",
+       :free_or_reduced_price_lunch => "./test/fixtures/lunch.csv",
+       :title_i => "./test/fixtures/title.csv"
+     }
+   })
+    dr
+  end
 
+  def test_headcount_anaylsis_exists
     ha = HeadcountAnalyst.new(dr)
     assert_instance_of HeadcountAnalyst, ha
   end
@@ -93,18 +110,18 @@ class HeadcountAnalystTest < Minitest::Test
 
   def test_high_school_versus_kindergarten_analysis
    dr = DistrictRepository.new
-   dr.load_data({:enrollment => {:kindergarten => "./data/Kindergartners in full-day program.csv",
-                                 :high_school_graduation => "./data/High school graduation rates.csv"}})
+   dr.load_data({:enrollment => {:kindergarten => "./test/fixtures/kg_in_full_day.csv",
+                                 :high_school_graduation => "./test/fixtures/hs_graduation.csv"}})
    ha = HeadcountAnalyst.new(dr)
 
-   assert_in_delta 0.548, ha.kindergarten_participation_against_high_school_graduation('MONTROSE COUNTY RE-1J'), 0.005
-   assert_in_delta 0.800, ha.kindergarten_participation_against_high_school_graduation('STEAMBOAT SPRINGS RE-2'), 0.005
+   assert_in_delta 0.641, ha.kindergarten_participation_against_high_school_graduation('ACADEMY 20'), 0.005
+   assert_in_delta 1.64, ha.kindergarten_participation_against_high_school_graduation('ADAMS COUNTY 14'), 0.005
  end
 
  def test_can_find_high_school_graduation_variation
    dr = DistrictRepository.new
-   dr.load_data({:enrollment => {:kindergarten => "./data/Kindergartners in full-day program.csv",
-                                 :high_school_graduation => "./data/High school graduation rates.csv"}})
+   dr.load_data({:enrollment => {:kindergarten => "./test/fixtures/kg_in_full_day.csv",
+                                 :high_school_graduation => "./test/fixtures/hs_graduation.csv"}})
    ha = HeadcountAnalyst.new(dr)
    expected = ha.high_school_graduation_rate_variation("ACADEMY 20", :against => "COLORADO")
    assert_equal 1.1947844598190527, expected
@@ -112,8 +129,8 @@ class HeadcountAnalystTest < Minitest::Test
 
  def test_kindergarten_participation_correlates_with_high_school_graduation
    dr = DistrictRepository.new
-   dr.load_data({:enrollment => {:kindergarten => "./data/Kindergartners in full-day program.csv",
-                                 :high_school_graduation => "./data/High school graduation rates.csv"}})
+   dr.load_data({:enrollment => {:kindergarten => "./test/fixtures/kg_in_full_day.csv",
+                                 :high_school_graduation => "./test/fixtures/hs_graduation.csv"}})
    ha = HeadcountAnalyst.new(dr)
    expected = ha.kindergarten_participation_correlates_with_high_school_graduation(for: 'ACADEMY 20')
    assert_equal true, expected
@@ -121,8 +138,8 @@ class HeadcountAnalystTest < Minitest::Test
 
  def test_multi_district_corellation_with_hs_to_kg
    dr = DistrictRepository.new
-   dr.load_data({:enrollment => {:kindergarten => "./data/Kindergartners in full-day program.csv",
-                                 :high_school_graduation => "./data/High school graduation rates.csv"}})
+   dr.load_data({:enrollment => {:kindergarten => "./test/fixtures/kg_in_full_day.csv",
+                                 :high_school_graduation => "./test/fixtures/hs_graduation.csv"}})
    ha = HeadcountAnalyst.new(dr)
    district_1 = "ACADEMY 20"
    district_2 = "ADAMS COUNTY 14"
@@ -130,23 +147,4 @@ class HeadcountAnalystTest < Minitest::Test
    expected = ha.kindergarten_participation_correlates_with_high_school_graduation(:across => [district_1, district_2, district_3])
    assert_equal false, expected
   end
-
-  def test_statewide_kindergarten_high_school_prediction
-    dr = DistrictRepository.new
-    dr.load_data({:enrollment => {:kindergarten => "./data/Kindergartners in full-day program.csv",
-                                  :high_school_graduation => "./data/High school graduation rates.csv"}})
-    ha = HeadcountAnalyst.new(dr)
-
-    refute ha.kindergarten_participation_correlates_with_high_school_graduation(:for => 'STATEWIDE')
-  end
-
-  def test_kindergarten_hs_prediction_multi_district
-    dr = DistrictRepository.new
-    dr.load_data({:enrollment => {:kindergarten => "./data/Kindergartners in full-day program.csv",
-                                  :high_school_graduation => "./data/High school graduation rates.csv"}})
-    ha = HeadcountAnalyst.new(dr)
-    districts = ["ACADEMY 20", 'PARK (ESTES PARK) R-3', 'YUMA SCHOOL DISTRICT 1']
-    assert ha.kindergarten_participation_correlates_with_high_school_graduation(:across => districts)
-  end
-
 end

@@ -42,12 +42,13 @@ class EconomicProfileTest < Minitest::Test
 
   def test_economic_profile_has_poverty_data
     ep = EconomicProfile.new(data)
-    expected =         {
-              1995=>0.032,
-              1997=>0.035,
-              1999=>0.032,
-              2000=>0.031
-            }
+    expected =
+      {
+        1995=>0.032,
+        1997=>0.035,
+        1999=>0.032,
+        2000=>0.031
+      }
 
     assert_equal (expected), ep.children_in_poverty
     assert_equal Hash, ep.children_in_poverty.class
