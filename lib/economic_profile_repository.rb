@@ -11,8 +11,8 @@ class EconomicProfileRepository
   end
 
   def load_data(path)
-     path[:economic_profile].each do |symbol, file_path|
-       CSV.foreach(file_path, headers: true, header_converters: :symbol) do |row|
+     path[:economic_profile].each do |symbol, f_path|
+       CSV.foreach(f_path, headers: true, header_converters: :symbol) do |row|
          @csv_object = row
          make_ep(row, symbol)
        end
