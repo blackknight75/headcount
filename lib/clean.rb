@@ -1,4 +1,4 @@
-class Sanitizer
+class Clean
 
   def self.truncate_data(float)
     float = 0 if float.nan?
@@ -10,11 +10,11 @@ class Sanitizer
   end
 
   def self.poverty_level(row)
-    row[:poverty_level]
+    row[:poverty_level] unless row[:poverty_level].nil?
   end
 
   def self.dataformat(row)
-    row[:dataformat].downcase
+    row[:dataformat].downcase.to_sym
   end
 
   def self.year(row, symbol = nil)
@@ -32,12 +32,14 @@ class Sanitizer
       0
     elsif data != nil && data.include?(".")
       data.to_f.round(3)
+    elsif data != Fixnum || data != Float
+      "N/A"
     else
       data.to_i
     end
   end
 
-  def self.poverty_data(row)
+  def self.pov_data(row)
     if row[:dataformat] == "percent"
       row[:data].to_f.round(3)
     else
@@ -45,7 +47,7 @@ class Sanitizer
     end
   end
 
-  def self.poverty_year(row)
+  def self.pov_year(row)
     if row[:dataformat] == "percent"
       row[:timeframe].to_i
     else
@@ -54,11 +56,13 @@ class Sanitizer
   end
 
   def self.lunch_data(row)
-    return row[:data].to_f.round(3) if row[:dataformat] == "percent"
-    return row[:data].to_i if row[:dataformat] == "number"
-
+    return row[:data].to_f.round(3) if row[:dataformat].downcase == "percent"
+    return row[:data].to_i if row[:dataformat].downcase == "number"
   end
-  # def self.error?(condition)
-  #   raise UnknownDataError unless condition
-  # end
+
+  def self.grade(grade)
+    return :third_grade  if grade == 3
+    return :eighth_grade if grade == 8
+    return grade if grade == :third_grade || grade == :eighth_grade
+  end
 end
